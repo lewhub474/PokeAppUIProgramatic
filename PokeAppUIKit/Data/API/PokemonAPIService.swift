@@ -24,13 +24,6 @@ final class PokemonAPIService: PokemonAPIServiceProtocol {
         return response.results
     }
     
-//    func fetchAbilityDetail(for id: Int) async throws -> PokemonAbilityResponse {
-//        let url = URL(string: "\(baseURL)/ability/\(id)")!
-//        let (data, _) = try await URLSession.shared.data(from: url)
-//        let response = try JSONDecoder().decode(PokemonAbilityResponse.self, from: data)
-//        return response
-//    }
-    
     func fetchPokemonDetail(for id: Int) async throws -> PokemonDTO {
         let url = URL(string: "\(baseURL)/pokemon/\(id)")!
         let (data, _) = try await URLSession.shared.data(from: url)
@@ -44,7 +37,6 @@ struct PokemonListItemDTO: Codable {
     let name: String
     let url: String
 }
-
 
 
 extension PokemonListItemDTO {

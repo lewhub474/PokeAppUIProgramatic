@@ -6,8 +6,7 @@
 //
 
 protocol PokemonAPIServiceProtocol {
-    func fetchPokemonList() async throws -> [PokemonListItemDTO] // 👈 corregido
-//    func fetchAbilityDetail(for id: Int) async throws -> PokemonAbilityResponse
+    func fetchPokemonList() async throws -> [PokemonListItemDTO] 
     func fetchPokemonDetail(for id: Int) async throws -> PokemonDTO
 }
 
