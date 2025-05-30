@@ -13,3 +13,5 @@ struct PokemonDetail {
     let stats: [PokemonStat]
     let evolutions: [String]
 }
+
+

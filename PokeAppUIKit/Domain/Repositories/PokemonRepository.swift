@@ -48,15 +48,9 @@ final class PokemonRepository: PokemonRepositoryProtocol, PokemonDetailRepositor
         }
         
         let (data, _) = try await URLSession.shared.data(from: url)
-        
-        let dto = try JSONDecoder().decode(PokemonDetailDTO.self, from: data)
-        return dto.toDomain()
+        let dto = try JSONDecoder().decode(PokemonDTO.self, from: data)
+        return PokemonDetail(dto: dto)
     }
-    
-    // Obtener habilidad (async)
-//    func getAbility(for id: Int) async throws -> Ability {
-//        let response = try await apiService.fetchAbilityDetail(for: id)
-//        return Ability(response: response)
-//    }
+
 }
 

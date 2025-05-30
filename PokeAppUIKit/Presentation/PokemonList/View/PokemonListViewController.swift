@@ -43,7 +43,7 @@ class PokemonListViewController: UIViewController {
         // Setup TableView
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(PokemonCellList.self, forCellReuseIdentifier: PokemonCellList.identifier)
+        tableView.register(PokemonCellListView.self, forCellReuseIdentifier: PokemonCellListView.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(tableView)
@@ -75,7 +75,7 @@ extension PokemonListViewController: UITableViewDataSource, UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PokemonCellList.identifier, for: indexPath) as? PokemonCellList else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PokemonCellListView.identifier, for: indexPath) as? PokemonCellListView else {
             return UITableViewCell()
         }
         
