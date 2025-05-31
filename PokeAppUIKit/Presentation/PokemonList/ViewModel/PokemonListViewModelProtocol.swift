@@ -13,5 +13,7 @@ protocol PokemonListViewModelProtocol {
     var onDataUpdated: (() -> Void)? { get set }
     
     func fetchPokemons()
-    func search(with text: String)
+    func fetchFavoritePokemons()
+    func search(with query: String)
+    func toggleFavorite(for pokemon: Pokemon)
 }

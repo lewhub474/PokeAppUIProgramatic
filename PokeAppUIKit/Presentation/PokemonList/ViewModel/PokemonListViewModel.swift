@@ -8,6 +8,24 @@
 import Foundation
 
 class PokemonListViewModel: PokemonListViewModelProtocol {
+    
+    func fetchFavoritePokemons() {
+            filteredPokemons = pokemons.filter { $0.isFavorite }
+            onDataUpdated?()
+        }
+    
+    func toggleFavorite(for pokemon: Pokemon) {
+        if let index = pokemons.firstIndex(where: { $0.name == pokemon.name }) {
+            pokemons[index].isFavorite.toggle()
+        }
+
+        if let index = filteredPokemons.firstIndex(where: { $0.name == pokemon.name }) {
+            filteredPokemons[index].isFavorite.toggle()
+        }
+
+        onDataUpdated?()
+    }
+
     private let fetchAllPokemonUseCase: FetchAllPokemonUseCaseProtocol
     
     private(set) var pokemons: [Pokemon] = []

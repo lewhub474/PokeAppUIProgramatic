@@ -13,6 +13,7 @@ struct Pokemon {
     let imageURL: String
     let types: [String]
     let stats: [Stat]
+    var isFavorite: Bool = false
     
     init(dto: PokemonDTO) {
         self.id = dto.id
