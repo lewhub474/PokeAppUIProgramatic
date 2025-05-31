@@ -14,7 +14,6 @@ final class PokemonRepository: PokemonRepositoryProtocol, PokemonDetailRepositor
         self.apiService = apiService
     }
     
-    // Implementación lista de pokemons
     func getAllPokemon() async throws -> [Pokemon] {
         let listItems = try await apiService.fetchPokemonList()
         

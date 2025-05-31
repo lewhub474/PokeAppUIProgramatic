@@ -14,7 +14,6 @@ class PokemonCellListView: UITableViewCell {
     private let nameLabel = UILabel()
     private let favoriteButton = UIButton(type: .system)
     
-    private var isFavorite = false
     private var toggleFavoriteAction: (() -> Void)?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -63,13 +62,11 @@ class PokemonCellListView: UITableViewCell {
         nameLabel.text = pokemon.name.capitalized
         pokemonImageView.loadImage(from: pokemon.imageURL)
         
-        self.isFavorite = isFavorite
-        self.toggleFavoriteAction = toggleAction
-        
-        updateFavoriteButtonImage()
+        toggleFavoriteAction = toggleAction
+        updateFavoriteButtonImage(isFavorite: isFavorite)
     }
     
-    private func updateFavoriteButtonImage() {
+    private func updateFavoriteButtonImage(isFavorite: Bool) {
         let imageName = isFavorite ? "heart.fill" : "heart"
         let image = UIImage(systemName: imageName)
         favoriteButton.setImage(image, for: .normal)
@@ -77,60 +74,9 @@ class PokemonCellListView: UITableViewCell {
     }
     
     @objc private func favoriteButtonTapped() {
-        isFavorite.toggle()
-        updateFavoriteButtonImage()
         toggleFavoriteAction?()
     }
 }
-
-
-//class PokemonCellListView: UITableViewCell {
-//    static let identifier = "PokemonCellListView"
-//    
-//    private let pokemonImageView = UIImageView()
-//    private let nameLabel = UILabel()
-//    
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        setupViews()
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//    private func setupViews() {
-//        pokemonImageView.translatesAutoresizingMaskIntoConstraints = false
-//        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        contentView.addSubview(pokemonImageView)
-//        contentView.addSubview(nameLabel)
-//        
-//        // Layout sencillo
-//        NSLayoutConstraint.activate([
-//            // Ya existentes
-//            pokemonImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-//            pokemonImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-//            pokemonImageView.widthAnchor.constraint(equalToConstant: 50),
-//            pokemonImageView.heightAnchor.constraint(equalToConstant: 50),
-//            
-//            nameLabel.leadingAnchor.constraint(equalTo: pokemonImageView.trailingAnchor, constant: 16),
-//            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-//            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-//            
-//            contentView.topAnchor.constraint(equalTo: pokemonImageView.topAnchor, constant: -8),
-//            contentView.bottomAnchor.constraint(equalTo: pokemonImageView.bottomAnchor, constant: 8)
-//        ])
-//        
-//        pokemonImageView.contentMode = .scaleAspectFit
-//    }
-//    
-//    func configure(with pokemon: Pokemon) {
-//        nameLabel.text = pokemon.name.capitalized
-//        pokemonImageView.loadImage(from: pokemon.imageURL)
-//    }
-//    
-//}
 
 class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
@@ -139,14 +85,11 @@ class MainTabBarController: UITabBarController {
         let apiService = PokemonAPIService()
         let repository = PokemonRepository(apiService: apiService)
         let fetchUseCase = FetchAllPokemonUseCase(repository: repository)
-        
-        let favoritesRepository = FavoritePokemonRepositoryRealm() // Primero declaras
-        
+        let favoritesRepository = FavoritePokemonRepositoryRealm()
         let viewModelAll = PokemonListViewModel(
             fetchAllPokemonUseCase: fetchUseCase,
             favoriteRepository: favoritesRepository  // Ahora sí está declarado
         )
-        
         let allVC = UINavigationController(rootViewController: PokemonListViewController(
             viewModel: viewModelAll,
             repository: repository,

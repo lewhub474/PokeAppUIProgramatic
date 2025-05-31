@@ -56,35 +56,28 @@ class PokemonDetailViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         
-        // Constraints
         NSLayoutConstraint.activate([
-            // Imagen centrada horizontalmente, tamaño fijo y top safe area + 20
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.widthAnchor.constraint(equalToConstant: 150),
             imageView.heightAnchor.constraint(equalToConstant: 150),
             
-            // Nombre abajo de la imagen con espacio
             nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            // Tipos abajo del nombre
             typesLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 12),
             typesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             typesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            // Stats abajo de tipos
             statsLabel.topAnchor.constraint(equalTo: typesLabel.bottomAnchor, constant: 12),
             statsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             statsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            // Habilidades abajo de stats
             abilitiesLabel.topAnchor.constraint(equalTo: statsLabel.bottomAnchor, constant: 12),
             abilitiesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             abilitiesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            // Evoluciones abajo de habilidades
             evolutionsLabel.topAnchor.constraint(equalTo: abilitiesLabel.bottomAnchor, constant: 12),
             evolutionsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             evolutionsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),

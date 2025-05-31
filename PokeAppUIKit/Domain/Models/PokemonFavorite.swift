@@ -8,7 +8,7 @@
 import RealmSwift
 
 class FavoritePokemon: Object {
-    @Persisted(primaryKey: true) var id: Int           // coincide con el id del Pokémon
+    @Persisted(primaryKey: true) var id: Int 
     @Persisted var name: String
     @Persisted var imageURL: String?
 }
@@ -24,14 +24,20 @@ protocol FavoritePokemonRepositoryProtocol {
 }
 
 class FavoritePokemonRepositoryRealm: FavoritePokemonRepositoryProtocol {
-    private let realm = try! Realm()
 
     func isFavorite(id: Int) -> Bool {
-        return realm.object(ofType: FavoritePokemon.self, forPrimaryKey: id) != nil
+        do {
+            let realm = try Realm()
+            return realm.object(ofType: FavoritePokemon.self, forPrimaryKey: id) != nil
+        } catch {
+            print("Error opening Realm: \(error)")
+            return false
+        }
     }
 
     func add(_ pokemon: FavoritePokemon) {
         do {
+            let realm = try Realm()
             try realm.write {
                 realm.add(pokemon, update: .modified)
             }
@@ -42,19 +48,30 @@ class FavoritePokemonRepositoryRealm: FavoritePokemonRepositoryProtocol {
         }
     }
 
-
     func remove(id: Int) {
-        if let object = realm.object(ofType: FavoritePokemon.self, forPrimaryKey: id) {
-            try? realm.write {
-                realm.delete(object)
+        do {
+            let realm = try Realm()
+            if let object = realm.object(ofType: FavoritePokemon.self, forPrimaryKey: id) {
+                try realm.write {
+                    realm.delete(object)
+                }
             }
+        } catch {
+            print("Error removing favorite: \(error)")
         }
     }
 
     func getAllFavorites() -> [FavoritePokemon] {
-        return Array(realm.objects(FavoritePokemon.self))
+        do {
+            let realm = try Realm()
+            return Array(realm.objects(FavoritePokemon.self))
+        } catch {
+            print("Error fetching favorites: \(error)")
+            return []
+        }
     }
 }
+
 
 import Foundation
 
@@ -74,13 +91,6 @@ final class FavoritesViewModel: ObservableObject {
         observeFavorites()
         loadFavorites() // <- Agregado aquí
     }
-
-    
-//    init(repository: FavoritePokemonRepositoryProtocol) {
-//        self.repository = repository
-//        self.realm = try! Realm()
-//        observeFavorites()
-//    }
 
     private func observeFavorites() {
         let results = realm.objects(FavoritePokemon.self)
