@@ -31,20 +31,3 @@ final class PokemonAPIService: PokemonAPIServiceProtocol {
     }
     
 }
-
-
-struct PokemonListItemDTO: Codable {
-    let name: String
-    let url: String
-}
-
-
-extension PokemonListItemDTO {
-    var id: Int? {
-        // Extrae el id del final de la url, ej: "https://pokeapi.co/api/v2/pokemon/1/"
-        guard let lastComponent = url.split(separator: "/").last,
-              let id = Int(lastComponent) else { return nil }
-        return id
-    }
-}
-

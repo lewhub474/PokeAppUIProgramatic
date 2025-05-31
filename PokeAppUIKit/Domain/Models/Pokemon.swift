@@ -32,13 +32,3 @@ struct Pokemon {
     }
 }
 
-struct Stat {
-    let name: String
-    let value: Int
-    
-    init(dto: StatEntryDTO) {
-        self.name = dto.stat.name
-        self.value = dto.baseStat
-    }
-}
-
