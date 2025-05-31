@@ -7,9 +7,3 @@
 
 import Combine
 
-
-final class FavoriteEvents {
-    static let shared = FavoriteEvents()
-    let favoritesDidChange = PassthroughSubject<Void, Never>()
-    private init() {}
-}
