@@ -3,7 +3,7 @@ Pokedéx diseñado en UI Programática
 
 # PokeAppUIKit
 
-**PokeAppUIKit** es una aplicación iOS desarrollada en UIKit con vistas programaticas que permite visualizar una Pokédex de los primeros 151 Pokémon. La app ofrece funcionalidades como búsqueda, vista de detalle, y la posibilidad de marcar Pokémon como favoritos con persistencia local.
+**PokeAppUIKit** es una aplicación iOS desarrollada en UIKit con vistas programáticas que permite visualizar una Pokédex de los primeros 151 Pokémon. La app ofrece funcionalidades como búsqueda, vista de detalle, y la posibilidad de marcar Pokémon como favoritos con persistencia local.
 
 ---
 
