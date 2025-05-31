@@ -139,7 +139,13 @@ class MainTabBarController: UITabBarController {
         let apiService = PokemonAPIService()
         let repository = PokemonRepository(apiService: apiService)
         let fetchUseCase = FetchAllPokemonUseCase(repository: repository)
-        let viewModelAll = PokemonListViewModel(fetchAllPokemonUseCase: fetchUseCase)
+        
+        let favoritesRepository = FavoritePokemonRepositoryRealm() // Primero declaras
+        
+        let viewModelAll = PokemonListViewModel(
+            fetchAllPokemonUseCase: fetchUseCase,
+            favoriteRepository: favoritesRepository  // Ahora sí está declarado
+        )
         
         let allVC = UINavigationController(rootViewController: PokemonListViewController(
             viewModel: viewModelAll,
@@ -148,7 +154,6 @@ class MainTabBarController: UITabBarController {
         )
         allVC.tabBarItem = UITabBarItem(title: "Todos", image: UIImage(systemName: "list.bullet"), tag: 0)
         
-        let favoritesRepository = FavoritePokemonRepositoryRealm()
         let favoritesViewModel = FavoritesViewModel(repository: favoritesRepository)
         let favoritesVC = FavoritesViewController(viewModel: favoritesViewModel)
         

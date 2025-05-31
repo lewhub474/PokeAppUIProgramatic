@@ -26,7 +26,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let favoritesRepository = FavoritePokemonRepositoryRealm()
 
         // 📱 Vista 1 - Lista de Pokémon
-        let pokemonListVM = PokemonListViewModel(fetchAllPokemonUseCase: useCase)
+        let pokemonListVM = PokemonListViewModel(
+            fetchAllPokemonUseCase: useCase,
+            favoriteRepository: favoritesRepository
+        )
+
         let pokemonListVC = PokemonListViewController(
             viewModel: pokemonListVM,
             repository: repository, showFavorites: false

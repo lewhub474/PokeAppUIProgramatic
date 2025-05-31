@@ -39,6 +39,7 @@ class PokemonCellListViewModel {
                 "imageURL": pokemon.imageURL
             ])
             favoritesRepository.add(favorite)
+            print("aqui llego el boton")
         }
     }
 }
